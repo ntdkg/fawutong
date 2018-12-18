@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="cn.edu.neusoft.fawutong.mapper.DelegateDao">
+   <select id="getAllDelegates" resultType="cn.edu.neusoft.fawutong.domain.Delegate">
+      select * from tbl_delegate order by did ASC
+   </select>
+   
+   <select id="getSearchDelegates" parameterType="java.lang.String" resultType="cn.edu.neusoft.fawutong.domain.Delegate">
+      select * from tbl_delegate where dcaseType like #{dcaseType} order by did ASC
+   </select>
+   
+   <select id="getFindDelegate" parameterType="java.lang.String" resultType="cn.edu.neusoft.fawutong.domain.Delegate">
+      select * from tbl_delegate where did = CAST(#{id} as Integer)
+   </select>
+ 	
+ 	<update id="updateDelegate" parameterType="cn.edu.neusoft.fawutong.domain.Delegate">
+ 		update 
+ 			tbl_delegate 
+ 		set 
+ 			dbizType=#{dbizType},
+ 			dcaseType=#{dcaseType},
+ 			dnickname=#{dnickname},
+ 			dprice=#{dprice},
+ 			ddescription=#{ddescription},
+ 			dsendtime=#{dsendtime} 
+ 		where 
+ 			did=#{did}
+ 	</update>
+ 	
+ 	<delete id="delDelegate" parameterType="java.lang.String">
+ 		delete from
+ 			tbl_delegate
+ 		where
+ 			did = CAST(#{id} as Integer)
+ 	</delete>
+   
+   	
+   	<insert id="addDelegation" parameterType="cn.edu.neusoft.fawutong.domain.Delegate">
+ 		INSERT INTO 
+ 			tbl_delegate (uid,dcaseType,dbizType,dprice,dstatus,ddescription,ddeadline,dsendtime,dnickname) 
+ 		VALUES 
+ 			(#{uid},#{dcaseType},#{dbizType},#{dprice},#{dstatus},#{ddescription},#{ddeadline},#{dsendtime},#{dnickname})
+ 	</insert>
+   
+   <insert id="addWrit" parameterType="cn.edu.neusoft.fawutong.domain.Delegate">
+ 		INSERT INTO 
+ 			tbl_delegate (uid,dcaseType,dbizType,dprice,dstatus,ddescription,dnickname,ddeadline,dsendtime) 
+ 		VALUES 
+ 		(#{uid},#{dcaseType},#{dbizType},#{dprice},#{dstatus},#{ddescription},#{dnickname},#{ddeadline},#{dsendtime})
+ 	</insert>
+ 	
+ 	<select id="getStatusDelegate" parameterType="java.lang.String" resultType="cn.edu.neusoft.fawutong.domain.Delegate">
+ 		select * from tbl_delegate where dstatus = #{dstatus}
+ 	</select>
+   
+</mapper>
+
+

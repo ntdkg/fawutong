@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="cn.edu.neusoft.fawutong.mapper.NewsDao">
+   <select id="getAllNews" resultType="cn.edu.neusoft.fawutong.domain.News">
+      select * from tbl_news order by nid ASC
+   </select>
+  	
+  	<select id="getSearchNews" parameterType="java.lang.String" resultType="cn.edu.neusoft.fawutong.domain.News">
+      select * from tbl_news where ntitle like #{ntitle} order by nid ASC
+   </select>
+  	
+  	<select id="getFindNews" parameterType="java.lang.String" resultType="cn.edu.neusoft.fawutong.domain.News">
+      select * from tbl_news where nid = CAST(#{id} as Integer)
+   </select>
+   
+   
+   <select id="getAllInfomation" resultType="cn.edu.neusoft.fawutong.domain.News">
+      select * from tbl_news where ntype = '资讯'
+   </select>
+   
+   
+   <update id="updateNews" parameterType="cn.edu.neusoft.fawutong.domain.News">
+   	  update 
+   	  	tbl_news 
+   	  set
+   	    ntitle=#{ntitle},
+   	    nsource=#{nsource},
+   	    ndate=#{ndate},
+   	    ntype=#{ntype},
+   	    ncontext=#{ncontext},
+   	    nisHot=#{nisHot}
+   	    <if test="nimg != null and nimg != ''">
+   	    	, nimg=#{nimg}
+   	    </if>
+   	  where 
+   	    nid=#{nid}
+   </update>
+   
+   <delete id="delNews" parameterType="java.lang.String">
+   	  delete from
+   	  	tbl_news
+   	  where 
+   	  	nid = CAST(#{id} as Integer)
+   </delete>
+  
+</mapper>

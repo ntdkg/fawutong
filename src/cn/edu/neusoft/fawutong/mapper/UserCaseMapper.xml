@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="cn.edu.neusoft.fawutong.mapper.UserCaseDao">
+   
+    <insert id="addCaseService" parameterType="cn.edu.neusoft.fawutong.domain.UserCase">
+      INSERT INTO 
+      	tbl_usercase (uid,uctype,nickname,telephone,description,sendtime,idcode,ucstatus) 
+      VALUES 
+      	(#{uid}, #{uctype}, #{nickname}, #{telephone}, #{description}, #{sendtime} , #{idcode} , #{ucstatus})
+   </insert>
+   
+   <select id="getUserCase" resultType="cn.edu.neusoft.fawutong.domain.UserCase">
+      select * from tbl_usercase order by nid ASC
+   </select>
+   
+   <select id="getUserAllCase" parameterType="java.lang.String" resultType="cn.edu.neusoft.fawutong.domain.UserCase">
+      select * from tbl_usercase where uid = CAST(#{id} as Integer)
+   </select>
+   
+</mapper>

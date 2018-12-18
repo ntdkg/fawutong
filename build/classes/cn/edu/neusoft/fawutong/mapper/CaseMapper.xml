@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="cn.edu.neusoft.fawutong.mapper.CaseDao">
+   <select id="getAllCase" resultType="cn.edu.neusoft.fawutong.domain.Case">
+      select * from tbl_case order by cid ASC
+   </select>
+   
+   <select id="getSearchCase" parameterType="java.lang.String" resultType="cn.edu.neusoft.fawutong.domain.Case">
+      select * from tbl_case where ctitle like #{ctitle} order by cid ASC
+   </select>
+   
+   <select id="getFindCase" parameterType="java.lang.String" resultType="cn.edu.neusoft.fawutong.domain.Case">
+      select * from tbl_case where cid = CAST(#{id} as Integer)
+   </select>
+   
+   <select id="selectFindCase" parameterType="java.lang.String" resultType="cn.edu.neusoft.fawutong.domain.Case">
+      select * from tbl_case where cdate like #{date}
+   </select>
+   
+   <update id="updateCase" parameterType="cn.edu.neusoft.fawutong.domain.Case">
+   	  update 
+   	  	tbl_case 
+   	  set 
+   	  	ctitle=#{ctitle},
+   	  	ctype=#{ctype},
+   	  	cdate=#{cdate},
+   	  	ctrialdate=#{ctrialdate},
+   	  	cpresidingjudge=#{cpresidingjudge},
+   	  	cgeneral=#{cgeneral},
+   	  	uid=#{uid} 
+   	  where 
+   	  	cid=#{cid}
+   </update>
+   
+   <delete id="delCase" parameterType="java.lang.String">
+		delete from 
+			tbl_case 
+		 where 
+		 	cid = CAST(#{id} as Integer)
+	</delete>
+   
+</mapper>

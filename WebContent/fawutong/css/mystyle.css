@@ -1,0 +1,172 @@
+@CHARSET "UTF-8";
+
+/* 顶部导航栏占了 50px，下移内容部分 */
+body {
+	padding-top: 50px;
+}
+
+/* 分割线 */
+.sub-header {
+	padding-bottom: 10px;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+/* 顶部导航栏，隐藏默认显示的1px边框 */
+.navbar-fixed-top {
+	border: 0;
+}
+
+/* 侧边栏中的头像背景设置为白色 */
+.sidebar-offcanvas>p>a>img {
+	background-color: #ffffff;
+}
+
+/* 侧边栏中的头像和名字居中 */
+.centered {
+	color: #ffffff;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+/* 侧边栏中的在线按钮 */
+.online {
+	width: 10px;
+	height: 10px;
+	background: #66DD00;
+	margin-right: 5px;
+	display: inline-block;
+}
+
+/* 侧边栏中的导航内容分组*/
+.nav-sidebar {
+	margin-bottom: 20px;
+}
+
+/* 侧边栏中的导航文字对齐*/
+.nav-sidebar>li>a {
+	color: #ffffff;
+	padding-right: 20px;
+	padding-left: 30px;
+}
+
+/* 侧边栏导航当前选中的的样式 */
+.nav-sidebar>.active>a,.nav-sidebar>.active>a:hover,.nav-sidebar>.active>a:focus
+{
+	color: #C80027;
+	background-color: #ffffff;
+}
+
+/* 侧边栏导航划过的样式 */
+.nav>li>a:hover {
+	color: #C80027;
+	background-color: #ffffff;
+}
+
+/* 主体内容 */
+.main {
+	padding: 20px;
+}
+
+/* 主体内容的页标题 */
+.main .page-header {
+	margin-top: 0;
+}
+
+/* 控制几张图片的距离与位置 */
+.placeholders {
+	margin-bottom: 30px;
+	text-align: center;
+}
+
+.placeholders h4 {
+	margin-bottom: 0;
+}
+
+.placeholder {
+	margin-bottom: 40px;
+}
+
+.placeholder img {
+	display: inline-block;
+}
+
+/* 设置默认字体为雅黑 */
+body,button,input,select,textarea,h1,h2,h3,h4,h5,h6 {
+	font-family: Microsoft YaHei, '宋体', Tahoma, Helvetica, Arial,
+		"\5b8b\4f53", sans-serif;
+}
+
+
+/* 这里是当浏览器宽度最小不小于768px时应用的效果  */
+@media ( min-width : 768px) {
+	/* 侧边栏的样式 */
+	.sidebar-offcanvas {
+		position: fixed;
+		top: 50px;
+		bottom: 0px;
+		left: 0px;
+		z-index: 1000;
+		display: block;
+		padding: 20px;
+		overflow-x: hidden;
+		overflow-y: auto;
+		background-color: #C80027;
+		border-right: 1px solid #ffffff;
+	}
+	/* 主体内容 */
+	.main {
+		padding-right: 40px;
+		padding-left: 40px;
+	}
+}
+
+/* 这里是当浏览器宽度最大不超过767px时应用的效果 */
+@media screen and (max-width: 767px) {
+	/* 侧边栏弹出动画 设置*/
+	.row-offcanvas {
+		position: relative;
+		-webkit-transition: all .25s ease-out;
+		-o-transition: all .25s ease-out;
+		transition: all .25s ease-out;
+	}
+	
+	.row-offcanvas-left {
+		left: 0;
+	}
+	
+	.row-offcanvas-left .sidebar-offcanvas {
+		left: -50%;
+	}
+	
+	.row-offcanvas-left.active {
+		left: 50%;
+	}
+	
+	/* 弹出的侧边栏设置 */
+	.sidebar-offcanvas {
+		position: absolute;
+		width: 50%; 
+		top: 0px;
+		bottom: 0px;
+		left: 0px;
+		z-index: 1000;
+		display: block;
+		padding: 20px;
+		overflow-x: hidden;
+		overflow-y: auto;
+		background-color: #C80027;
+		border-right: 1px solid #ffffff;
+	}
+	
+	/* 弹出按钮的样式 */
+	.offcanvas-nav-button {
+		width: 30px;
+		height: 30px;
+		margin-right: 15px;
+		background-color: #d80027;
+		border: 1px solid #505050;
+		border-radius: 50%;
+		padding: 10px;
+	}
+}

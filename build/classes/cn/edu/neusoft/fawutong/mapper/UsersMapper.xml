@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.edu.neusoft.fawutong.mapper.UsersDao">
+	<select id="getAllUsers_admin" resultType="cn.edu.neusoft.fawutong.domain.Users">
+		select * from tbl_users order by uid ASC
+	</select>
+	
+	<select id="getSearchUsers_admin" parameterType="java.lang.String" resultType="cn.edu.neusoft.fawutong.domain.Users">
+		select * from tbl_users where uname like #{uname} order by uid ASC
+	</select>
+
+	<select id="getfindUser" parameterType="java.lang.String"
+		resultType="cn.edu.neusoft.fawutong.domain.Users">
+		select * from tbl_users where uid = CAST(#{id} as Integer)
+	</select>
+	
+	<select id="getOneLawyer" resultType="cn.edu.neusoft.fawutong.domain.Users">
+		select * from tbl_users where uid = #{id}
+	</select>
+
+	<insert id="addNewUser" parameterType="cn.edu.neusoft.fawutong.domain.Users">
+      	INSERT INTO 
+      		tbl_users 
+      	(uid,lisHot,lname,lresume,lcity,loffice,limage,uphone,uname,lisLaw,upassword,uemail,lstatus,umoney) 
+      		VALUES 
+      	(#{uid}, #{lisHot}, #{lname} , #{lresume}, #{lcity}, #{loffice}, #{limage},#{uphone},#{uname},#{lisLaw},#{upassword},#{uemail},#{lstatus},#{umoney})
+   	</insert>
+
+	<update id="updateUser" parameterType="cn.edu.neusoft.fawutong.domain.Users">
+		update 
+			tbl_users 
+		set
+			lisHot=#{lisHot},
+			lname=#{lname},
+			lresume=#{lresume},
+			lcity=#{lcity},
+			loffice=#{loffice},
+			uphone=#{uphone},
+			uname=#{uname},
+			lisLaw=#{lisLaw},
+			upassword=#{upassword},
+			uemail=#{uemail},
+			lstatus=#{lstatus}
+			<if test="limage != null and limage != ''">
+                , limage = #{limage}
+             </if>
+		where 
+			uid=#{uid}
+	</update>
+	
+	<update id="updateUserOfUser" parameterType="cn.edu.neusoft.fawutong.domain.Users">
+		update 
+			tbl_users 
+		set
+			lname=#{lname},
+			lresume=#{lresume},
+			lcity=#{lcity},
+			loffice=#{loffice},
+			uphone=#{uphone},
+			uname=#{uname},
+			lisLaw=#{lisLaw},
+			upassword=#{upassword},
+			uemail=#{uemail},
+			lstatus=#{lstatus}
+			<if test="limage != null and limage != ''">
+                , limage = #{limage}
+             </if>
+		where 
+			uid=#{uid}
+	</update>
+	
+	<update id="updateUserMoney" parameterType="java.util.Map">
+		update 
+			tbl_users 
+		set
+			umoney=#{umoney}
+		where 
+			uid=CAST(#{uid} as Integer)
+	</update>
+	
+	<delete id="delUser" parameterType="java.lang.String">
+		delete from 
+			tbl_users 
+		 where 
+		 	uid= CAST(#{uid} as Integer)
+	</delete>
+	
+	<select id="getAllLawyers" resultType="cn.edu.neusoft.fawutong.domain.Users">
+		select * from tbl_users where lisLaw='是' and lstatus='通过' order by uid ASC
+	</select>
+	
+	<select id="getHot5Lawyers" resultType="cn.edu.neusoft.fawutong.domain.Users">
+		select * from tbl_users where lisLaw='是' and lstatus='通过' order by lisHot DESC LIMIT 5
+	</select>
+	
+	<select id="selectKeywordLawyers" parameterType="java.lang.String" resultType="cn.edu.neusoft.fawutong.domain.Users">
+		select * from tbl_users where ( lcity LIKE #{keyword} or lname LIKE #{keyword} or loffice LIKE #{keyword} ) and lisLaw='是' and lstatus='通过'
+	</select>
+	
+	<select id="selectIsUser" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from tbl_users where uphone = #{uphone}
+	</select>
+	
+	<select id="getLoginUser" parameterType="java.util.Map" resultType="cn.edu.neusoft.fawutong.domain.Users">
+   	  	select * from tbl_users where uphone = #{uphone} and upassword = #{upassword}
+   	</select>
+	
+	<select id="getMyCaseNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+   	  	select count(*) from tbl_usercase where uid = CAST(#{uid} as Integer)
+   	</select>
+   	
+   	<select id="selectIsCollection" parameterType="java.util.Map" resultType="java.lang.Integer">
+   	  	select count(*) from tbl_collection where uid = CAST(#{uid} as Integer) and lid = CAST(#{lid} as Integer)
+   	</select>
+   	
+   	<select id="getMyLawyerNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+   	  	select count(*) from tbl_collection where uid = CAST(#{uid} as Integer)
+   	</select>
+   	
+   	<select id="getMyOrderNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+   	  	select count(*) from tbl_order where lid = CAST(#{lid} as Integer)
+   	</select>
+   	
+   	<select id="getOrderOfDidNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+   	  	select count(*) from tbl_order where did = CAST(#{did} as Integer)
+   	</select>
+	
+	<select id="getMyDelegateNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+   	  	select count(*) from tbl_delegate where uid = CAST(#{uid} as Integer)
+   	</select>
+   	
+   	<insert id="addCollection" parameterType="java.util.Map">
+   		INSERT INTO tbl_collection (uid,lid) 
+ 		VALUES (CAST(#{uid} as Integer),CAST(#{lid} as Integer))
+   	</insert>
+	
+	<select id="getAllDelegates" resultType="cn.edu.neusoft.fawutong.domain.Delegate">
+		select * from tbl_delegate
+	</select>
+	
+	<insert id="doDelegate" parameterType="cn.edu.neusoft.fawutong.domain.Order">
+ 		INSERT INTO tbl_order (did,lid,oprice) 
+ 		VALUES (#{did},#{lid},#{oprice})
+ 	</insert>
+	
+	<update id="updateDelegateStatusING" parameterType="java.util.Map">
+		update 
+			tbl_delegate 
+		set
+			dstatus=#{dstatus}
+		where 
+			did=CAST(#{did} as Integer)
+		<if test="dsendtime != null and dsendtime != ''">
+            and dsendtime=#{dsendtime}
+       	</if>
+	</update>
+	
+	<delete id="doNotCollecte" parameterType="java.util.Map">
+		delete from tbl_collection where uid=CAST(#{uid} as Integer) and lid=CAST(#{lid} as Integer)
+	</delete>
+	
+	<delete id="delOrderInfo" parameterType="java.lang.String">
+		delete from tbl_order where did = CAST(#{did} as Integer)
+	</delete>
+	
+	<select id="getAllMyLawyers" parameterType="java.lang.String" resultType="cn.edu.neusoft.fawutong.domain.Users">
+		select * from tbl_users where uid in (
+			select lid from tbl_collection where uid=CAST(#{uid} as Integer)
+		)
+	</select>
+	
+	<select id="getAllMyDelegates" parameterType="java.lang.String" resultType="cn.edu.neusoft.fawutong.domain.Delegate">
+		select * from tbl_delegate where uid = CAST(#{uid} as Integer)
+	</select>
+	
+	<select id="getAllLawDelegates" parameterType="java.lang.String" resultType="cn.edu.neusoft.fawutong.domain.Delegate">
+		select * from tbl_delegate where did in (select did from tbl_order where lid = CAST(#{lid} as Integer))
+	</select>
+	
+	<select id="getFindOrderNomalUser" parameterType="java.lang.String" resultType="cn.edu.neusoft.fawutong.domain.Users">
+		select * from tbl_users where uid in (select uid from tbl_delegate where did in (select did from tbl_order where did = #{did}))
+	</select>
+	
+	<select id="getFindOrderLawUser" parameterType="java.lang.String" resultType="cn.edu.neusoft.fawutong.domain.Users">
+		select * from tbl_users where uid in (select lid from tbl_order where did = CAST(#{did} as Integer))
+	</select>
+	
+	<select id="getFindDelegateNomalUser" parameterType="java.lang.String" resultType="cn.edu.neusoft.fawutong.domain.Users">
+		select * from tbl_users where uid in (select uid from tbl_delegate where did =CAST(#{did} as Integer))
+	</select>
+	
+	<select id="selectMaxUserId" resultType="java.lang.Integer">
+		select max(uid) from tbl_users
+	</select>
+	<select id="selectlaweremail" parameterType="java.lang.Integer" resultType="java.lang.String">
+	select uemail from tbl_users where uid=#{uid}
+	</select>
+</mapper>
